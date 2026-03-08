@@ -1,0 +1,5 @@
+# Terminal 1 — launch (live readings in bash):
+ros2 launch ultrasonic ultrasonic_launch.py
+
+# Terminal 2 — on-demand measure:
+ros2 run ultrasonic measure_client
