@@ -1,6 +1,3 @@
-<p align="center">
-  <img src="docs/banner.png" alt="Ultrasonic ROS2 Package" width="800"/>
-</p>
 
 <h1 align="center">🔊 ultrasonic</h1>
 
