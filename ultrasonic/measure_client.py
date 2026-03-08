@@ -21,7 +21,6 @@ _YELLOW = '\033[93m'
 _RED    = '\033[91m'
 _CYAN   = '\033[96m'
 _BOLD   = '\033[1m'
-_DIM    = '\033[2m'
 _RESET  = '\033[0m'
 
 
@@ -42,21 +41,11 @@ class MeasureClient(Node):
             Range, '/ultrasonic/range',
             self._range_cb, sensor_qos)
 
-        W = 56
-        def _hdr(ch='═'): return f'{_CYAN}{_BOLD}{ch*W}{_RESET}'
-        print(f'\n{_hdr()}')
-        print(f'{_CYAN}{_BOLD}   📍  ULTRASONIC  ·  MEASURE CLIENT{_RESET}')
-        print(f'{_CYAN}   On-demand single distance readings{_RESET}')
-        print(f'{_hdr("─")}')
-        print(f'  {_CYAN}Topic{_RESET}   /ultrasonic/range  →  {_CYAN}sensor_msgs/Range{_RESET}')
-        print(f'{_hdr("─")}')
-        print(f'  {_BOLD}Commands:{_RESET}')
-        print(f'    {_CYAN}{_BOLD}m{_RESET} {_DIM}or{_RESET} {_CYAN}{_BOLD}measure{_RESET}   →  Take one reading')
-        print(f'    {_CYAN}{_BOLD}q{_RESET} {_DIM}or{_RESET} {_CYAN}{_BOLD}quit{_RESET}     →  Exit')
-        print(f'  {_DIM}Zones: {_RESET}{_RED}● Danger{_RESET}{_DIM}<30cm  {_YELLOW}● Caution{_RESET}{_DIM}30-100cm  {_GREEN}● Safe{_RESET}{_DIM}>100cm{_RESET}')
-        print(f'{_hdr()}')
-        print(f'  {_DIM}Created by Dilip Kumar{_RESET}')
-        print()
+        print(f'\n{_CYAN}{_BOLD}{"═"*44}{_RESET}')
+        print(f'{_CYAN}{_BOLD}  📏 Measure Client — On-Demand Readings{_RESET}')
+        print(f'{_CYAN}{_BOLD}{"═"*44}{_RESET}')
+        print(f"  Type  {_BOLD}measure{_RESET}  → get one reading")
+        print(f"  Type  {_BOLD}quit{_RESET}     → exit\n")
 
     def _range_cb(self, msg: Range):
         self._latest_range = msg.range
@@ -70,7 +59,7 @@ class MeasureClient(Node):
 
         while rclpy.ok():
             try:
-                cmd = input(f'  {_CYAN}▶{_RESET}  ').strip().lower()
+                cmd = input(f'  {_CYAN}>{_RESET} ').strip().lower()
             except (EOFError, KeyboardInterrupt):
                 break
 

@@ -14,9 +14,24 @@ from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, TimerAction
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
+from launch.actions import LogInfo
 
 
 def generate_launch_description():
+
+    welcome_msg = LogInfo(msg="""
+\033[96m\033[1m
+=========================================================
+  _   _ _   _____ ____      _      ____   ___  _   _ _  ____
+ | | | | | |_   _|  _ \    / \    / ___| / _ \| \ | | |/ ___|
+ | | | | |   | | | |_) |  / _ \   \___ \| | | |  \| | | |
+ | |_| | |___| | |  _ <  / ___ \   ___) | |_| | |\  | |___
+  \___/|_____|_| |_| \_\/_/   \_\ |____/ \___/|_| \_|_|\____|
+
+  HC-SR04 Ultrasonic Sensor  →  ROS 2 Humble  →  RViz2
+  By Dilip Kumar
+=========================================================
+\033[0m""")
 
     serial_port_arg = DeclareLaunchArgument(
         'serial_port',
@@ -70,6 +85,7 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+        welcome_msg,
         serial_port_arg,
         baud_rate_arg,
         frame_id_arg,

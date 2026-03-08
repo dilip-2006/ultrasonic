@@ -118,25 +118,14 @@ class UltrasonicNode(Node):
         self._running  = True
         self._reading_count = 0
 
-        # ── Startup banner ─────────────────────────────────────────────────
-        W = 62
-        def _hdr(ch='═'): return f'{_CYAN}{_BOLD}{ch*W}{_RESET}'
-        print(f'\n{_hdr()}')
-        print(f'{_CYAN}{_BOLD}  🔊  ULTRASONIC NODE  —  HC-SR04 Serial Bridge{_RESET}')
-        print(f'{_hdr("─")}')
-        print(f'{_CYAN}  Port        {_RESET}{_BOLD}{self.serial_port}{_RESET}   {_CYAN}Baud {_RESET}{_BOLD}{self.baud_rate}{_RESET}')
-        print(f'{_CYAN}  TF          {_RESET}{self.parent_frame} → {_BOLD}{self.frame_id}{_RESET}')
-        print(f'{_CYAN}  Offsets     {_RESET}x={self.sensor_x} m  y={self.sensor_y} m  z={self.sensor_z} m')
-        print(f'{_hdr("─")}')
-        print(f'{_CYAN}  Topics{_RESET}')
-        print(f'    {_GREEN}▸{_RESET}  /ultrasonic/range       {_CYAN}sensor_msgs/Range{_RESET}')
-        print(f'    {_GREEN}▸{_RESET}  /ultrasonic/distance_m  {_CYAN}std_msgs/Float32{_RESET}')
-        print(f'    {_GREEN}▸{_RESET}  /ultrasonic/markers     {_CYAN}visualization_msgs/MarkerArray{_RESET}')
-        print(f'{_hdr("-")}')
-        print(f'  {_DIM}  Created by Dilip Kumar{_RESET}')
-        print(f'{_hdr()}')
-        print(f'  {_BOLD}{"#":<6} {"Distance":>10}   {"Bar  (0 ──────────── 200 cm)":^32}   Status{_RESET}')
-        print(f'  {"-"*6} {"-"*10}   {"-"*32}   {"-"*9}')
+        # Print startup banner
+        print(f'\n{_CYAN}{_BOLD}{"═"*54}{_RESET}')
+        print(f'{_CYAN}{_BOLD}  🔊 HC-SR04 Ultrasonic Sensor — Live Measurements{_RESET}')
+        print(f'{_CYAN}{_BOLD}  Port: {self.serial_port}  |  Baud: {self.baud_rate}{_RESET}')
+        print(f'{_CYAN}{_BOLD}  Topic: /ultrasonic/range{_RESET}')
+        print(f'{_CYAN}{_BOLD}{"═"*54}{_RESET}\n')
+        print(f'  {"#":<6} {"Distance":>10}   {"Bar (0–200 cm)":^32}   Status')
+        print(f'  {"─"*6} {"─"*10}   {"─"*32}   {"─"*8}')
 
         # ── Serial reader thread ──────────────────────────────────────────────
         self._thread = threading.Thread(target=self._serial_loop, daemon=True)
